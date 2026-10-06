@@ -1,0 +1,8 @@
+SO-101: printed parts as CadQuery programs
+
+Upstream: TheRobotStudio and Hugging Face, github.com/TheRobotStudio/SO-ARM100; the MuJoCo Menagerie model robotstudio_so101.
+Licence: Apache-2.0 (LICENSE in this folder).
+Each printed part is a CadQuery program (parts/<part>.py) written by Yo.Town 3D from the upstream's
+geometry. Mounting features (holes, bolt circles, servo seats, mating faces) match the original exactly;
+the rest of the shape is simplified. Bought parts (servos, bearings, screws, electronics) are not
+included.

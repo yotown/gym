@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yotown-gym"
+version = "0.1.0"
+description = "Robots as code: every printed part a CadQuery program, built on shared vendor parts and interfaces"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Yo.Town 3D", email = "help@yotown.com" }]
+requires-python = ">=3.11"               # CadQuery 2.8 needs 3.11+
+dependencies = ["cadquery>=2.4"]
+
+[project.scripts]
+gym = "yotown.gym.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["yotown*"]
+namespaces = true
