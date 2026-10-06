@@ -23,11 +23,13 @@ The repository has the framework, and the robots and tasks built with it:
 ```text
 src/yotown/gym/            the framework (import yotown.gym)
   interfaces.py            dimension types: BoltCircle, Screw, ScrewPattern, PinPattern
-  vendors/                 bought parts: STS3215, RS00..RS05, bearings, inserts, with their sources
+  standard/                standard parts: bearings by ISO size, heat-set inserts
   cli.py                   the gym command: build, check, diff
   (planned) robot.py       a robot's parts and their placements -> one assembly and its simulation model
   (planned) task/          base classes for tasks: environment and reward
 
+vendors/<maker>/           bought parts, one folder per maker (import yotown.gym.vendors.<maker>):
+                           STS3215, RS00..RS05, with their sources
 robots/<robot>/            one robot
   shared.py                the robot's choices: which servo, which screws, dimensions its parts share
   parts/<part>.py          one program per printed part, ending in `result`
@@ -118,5 +120,5 @@ printed; small test prints of a single interface to check a fit before printing 
 1. It builds one valid solid and ends in `result`.
 2. Interfaces are exact and named, in the interfaces group; everything else is in the body group.
 3. Each value is written once. Values calculated from others are lower case.
-4. Shared values come from `shared.py` and bought parts from `yotown.gym.vendors`. No vendor CAD files.
+4. Shared values come from `shared.py` and bought parts from `yotown.gym.vendors`. Vendor CAD only from its maker or under a licence that allows it.
 5. No runtime checks inside a part; the tools check parts from outside.

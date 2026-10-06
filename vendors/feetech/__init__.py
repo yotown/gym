@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from ..interfaces import BoltCircle
+from yotown.gym.interfaces import BoltCircle
 
 
 @dataclass(frozen=True)

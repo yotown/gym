@@ -54,7 +54,7 @@ so101 since HEAD: 5 changed, 8 unchanged
 
 | In software | Here |
 |---|---|
-| a library you depend on | `yotown.gym.vendors`: bought parts as classes (the `STS3215` servo, `RobStride` actuators, bearings, heat-set inserts) with their facts and sources |
+| a library you depend on | `yotown.gym.vendors`: bought parts as classes, one folder per maker (the Feetech `STS3215` servo, `RobStride` actuators), with their facts and sources; standard bearings and inserts in `yotown.gym.standard` |
 | an API | an interface: a bolt circle, a servo seat, a screw. One value, used by both parts it joins |
 | a module | a part program: `robots/<robot>/parts/<part>.py` |
 | configuration | `robots/<robot>/shared.py`: what a robot's parts share |
@@ -69,7 +69,9 @@ See [docs/design.md](docs/design.md) for how it fits together.
 ## The framework
 
 Bought parts (servos, actuators, bearings) are Python classes with their dimensions from the maker's
-datasheet. The actuator classes also have their torque ratings:
+datasheet, one folder per maker in [vendors/](vendors). The actuator classes also have their torque ratings.
+Makers are welcome to list their own parts: see [vendors/README.md](vendors/README.md).
+
 
 ```python
 from yotown.gym.vendors.feetech import STS3215
@@ -173,7 +175,8 @@ Keep a robot's folder together: its parts read its `shared.py`, and a family's m
 ## Project folder structure
 
 ```text
-src/yotown/gym/    the framework (import yotown.gym): interfaces, vendors (bought parts), the gym command
+src/yotown/gym/    the framework (import yotown.gym): interfaces, standard parts, the gym command
+vendors/<maker>/   bought parts, one folder per maker (import yotown.gym.vendors.<maker>)
 robots/<robot>/    shared.py, parts/<part>.py, the upstream's LICENSE and a NOTICE
 tasks/             training tasks for the robots (planned)
 docs/              the design (design.md), and the maps above (images/)

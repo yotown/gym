@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yotown-gym"
-version = "0.1.0"
+version = "0.2.0"
 description = "Robots as code: every printed part a CadQuery program, built on shared vendor parts and interfaces"
 readme = "README.md"
 license = { text = "Apache-2.0" }
@@ -15,7 +15,5 @@ dependencies = ["cadquery>=2.4"]
 [project.scripts]
 gym = "yotown.gym.cli:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["yotown*"]
-namespaces = true
+# the packages: src/yotown/... and vendors/ (installed as yotown.gym.vendors) are listed by setup.py,
+# so a maker's new folder under vendors/ installs without editing this file

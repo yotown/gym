@@ -5,7 +5,7 @@ follows. A value only one part uses stays in that part.
 """
 
 from yotown.gym.interfaces import Screw
-from yotown.gym.vendors.fasteners import HeatSetInsert
+from yotown.gym.standard.fasteners import HeatSetInsert
 from yotown.gym.vendors.feetech import STS3215
 
 SERVO = STS3215()                          # every joint

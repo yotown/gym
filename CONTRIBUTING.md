@@ -19,10 +19,11 @@ gym check so101             # every part builds one valid solid
 - **Parameters that matter for a task.** Name what a task would change (an arm's reach, a gripper's
   opening, a leg's length, a wall's thickness for strength) and calculate the rest from it.
 - **Shared values.** A number two parts must agree on goes in the robot's `shared.py`; a bought part's
-  dimensions go in `src/yotown/gym/vendors/`, with their source.
+  dimensions go in `vendors/<maker>/`, with their source.
 - **The red areas** in the README's maps, where a round or a curve was simplified.
-- **A new vendor part** (a servo, a bearing): its dimensions and mounting features, with a source for
-  each. No vendor CAD files.
+- **A new vendor part** (a servo, an actuator, a board): its dimensions and mounting features, with a
+  source for each, in `vendors/<maker>/`. Makers may list their own parts; see
+  [vendors/README.md](vendors/README.md) for the rules.
 
 ## The rules
 

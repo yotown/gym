@@ -5,6 +5,16 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.2.0
+
+Interface changes: none. Import paths changed for standard parts.
+
+- `vendors/` at the top of the repository, one folder per maker (`feetech/`, `robstride/`), each with
+  a README of its parts and sources. Still imported as `yotown.gym.vendors.<maker>`. Makers can list
+  their own parts: see `vendors/README.md`.
+- Bearings and heat-set inserts moved to `yotown.gym.standard` (`yotown.gym.standard.bearings`,
+  `yotown.gym.standard.fasteners`): they are standard sizes, not one maker's.
+
 ## 0.1.0
 
 First release.

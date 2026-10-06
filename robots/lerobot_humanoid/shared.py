@@ -5,7 +5,7 @@ follows. A value only one part uses stays in that part.
 """
 
 from yotown.gym.interfaces import Screw
-from yotown.gym.vendors.bearings import B6207, B6702
+from yotown.gym.standard.bearings import B6207, B6702
 from yotown.gym.vendors.robstride import RS03
 
 SMALL_BEARING = B6702                      # 15x21x4: the knee's axles, the u-joints' journals, the forearm, the hip yoke's axle

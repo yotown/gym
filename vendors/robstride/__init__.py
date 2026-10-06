@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ..interfaces import BoltCircle, PinPattern, ScrewPattern
+from yotown.gym.interfaces import BoltCircle, PinPattern, ScrewPattern
 
 
 @dataclass(frozen=True)
