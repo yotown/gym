@@ -1,5 +1,9 @@
 # Yo.Town Gym
 
+![SO-101, the LeRobot humanoid and Open Duck Mini v2, with every printed part built from its CadQuery program](docs/images/banner.png)
+
+*Orange: the printed parts, built from the programs in this repository. Grey: servos and other bought parts.*
+
 This repository has the 3D-printed parts of three open-source robots, rewritten as CadQuery (Python)
 programs.
 
