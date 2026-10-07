@@ -5,6 +5,18 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.2.1
+
+Interface changes: none. New makers and types only.
+
+- New makers: ROBOTIS (nine DYNAMIXEL X-series servos: case, mass, gearing, stall torque and speed per
+  voltage), Raspberry Pi (Pi 5, Pi 4, Zero 2 W, Camera Module 3), Adafruit (BNO085 and BNO055 IMU
+  breakouts) and Waveshare (the Bus Servo Adapter (A) board).
+- `yotown.gym.bought.Board`: a circuit board's outline, mounting holes (and where they sit), screw and
+  thickness; and `interfaces.HoleGrid`, holes on a rectangle's corners.
+- The SO-101's `waveshare_plate` takes its hole pattern from Waveshare's board, and the LeRobot
+  humanoid's `torso_imu_holder` from Adafruit's BNO055 (shapes unchanged).
+
 ## 0.2.0
 
 Interface changes: none. Import paths changed for standard parts.

@@ -4,10 +4,10 @@ Quasi-direct-drive actuators. [robstride.com](https://www.robstride.com/)
 
 | Part | Rated / peak torque | Reduction | Mass | Used in |
 |---|---|---|---|---|
-| RS00 | 5 / 14 N·m | 10 | 310 g | |
-| RS02 | 6 / 17 N·m | 7.75 | 405 g | |
-| RS03 | 20 / 60 N·m | 9 | 880 g | LeRobot humanoid (legs) |
-| RS05 | 1.6 / 5.5 N·m | 7.75 | 191 g | |
+| RS00 | 5 / 14 N·m | 10 | 310 g | LeRobot humanoid (torso) |
+| RS02 | 6 / 17 N·m | 7.75 | 405 g | LeRobot humanoid (hip yaw) |
+| RS03 | 20 / 60 N·m | 9 | 880 g | LeRobot humanoid (thighs) |
+| RS05 | 1.6 / 5.5 N·m | 7.75 | 191 g | LeRobot humanoid (shins) |
 
 ```python
 from yotown.gym.vendors.robstride import RS03, ALL

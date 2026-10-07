@@ -22,14 +22,15 @@ The repository has the framework, and the robots and tasks built with it:
 
 ```text
 src/yotown/gym/            the framework (import yotown.gym)
-  interfaces.py            dimension types: BoltCircle, Screw, ScrewPattern, PinPattern
+  interfaces.py            dimension types: BoltCircle, Screw, ScrewPattern, PinPattern, HoleGrid
   standard/                standard parts: bearings by ISO size, heat-set inserts
+  bought.py                base types for bought parts: Board (outline, thickness, mounting holes)
   cli.py                   the gym command: build, check, diff
   (planned) robot.py       a robot's parts and their placements -> one assembly and its simulation model
   (planned) task/          base classes for tasks: environment and reward
 
 vendors/<maker>/           bought parts, one folder per maker (import yotown.gym.vendors.<maker>):
-                           STS3215, RS00..RS05, with their sources
+                           Feetech, RobStride, ROBOTIS, Waveshare, with their sources
 robots/<robot>/            one robot
   shared.py                the robot's choices: which servo, which screws, dimensions its parts share
   parts/<part>.py          one program per printed part, ending in `result`

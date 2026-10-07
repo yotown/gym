@@ -18,8 +18,12 @@ each actuator in a list, and the one that does the task best is kept.
 
 | Maker | Parts | Used in |
 |---|---|---|
+| [Adafruit](adafruit) | BNO085 and BNO055 IMU breakouts | LeRobot humanoid (BNO055) |
 | [Feetech](feetech) | STS3215 bus servo | SO-101, Open Duck Mini v2 |
-| [RobStride](robstride) | RS00, RS02, RS03, RS05 actuators | LeRobot humanoid (RS03) |
+| [RobStride](robstride) | RS00, RS02, RS03, RS05 actuators | LeRobot humanoid (all four) |
+| [ROBOTIS](robotis) | DYNAMIXEL XL330, XC330, XL430, XC430, XM430, 2XL430, 2XC430 (ratings; mounting holes to come) | |
+| [Raspberry Pi](raspberrypi) | Raspberry Pi 5, 4, Zero 2 W; Camera Module 3 | LeRobot humanoid (Pi 5), Open Duck Mini v2 (Zero 2 W) |
+| [Waveshare](waveshare) | Bus Servo Adapter (A) driver board | SO-101 |
 
 Standard parts that no single maker owns (bearings by their ISO sizes, heat-set inserts) are in the
 framework, `yotown.gym.standard`.
@@ -27,7 +31,8 @@ framework, `yotown.gym.standard`.
 ## List your parts
 
 Makers are welcome to add their own parts, and anyone may add a part they use. Open a pull request with
-a folder `vendors/<maker>/`:
+a folder `vendors/<maker>/`. A circuit board is a `yotown.gym.bought.Board` (outline, thickness,
+mounting holes); other parts are a class of their own.
 
 ```text
 vendors/<maker>/

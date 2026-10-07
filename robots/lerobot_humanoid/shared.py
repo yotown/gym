@@ -6,12 +6,14 @@ follows. A value only one part uses stays in that part.
 
 from yotown.gym.interfaces import Screw
 from yotown.gym.standard.bearings import B6207, B6702
+from yotown.gym.vendors.adafruit import BNO055
 from yotown.gym.vendors.robstride import RS03
 
 SMALL_BEARING = B6702                      # 15x21x4: the knee's axles, the u-joints' journals, the forearm, the hip yoke's axle
 HIP_BEARING = B6207                        # 35x72x17: the hip yaw
 M3 = Screw(hole_d=3.3, head_d=6.5)         # M3 through, counterbored
 LEG_ACTUATOR = RS03                        # the hip pitch and the knee, in each leg
+IMU = BNO055                               # the torso's IMU board (Adafruit's BNO055 breakout, STEMMA QT)
 
 # -- mates: values two parts in one frame both fit -------------------------------------------------
 # the femur's halves

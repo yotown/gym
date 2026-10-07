@@ -16,7 +16,7 @@ S = shared(__file__)                       # the LeRobot humanoid's shared value
 # -- interfaces -- fixed ----------------------------------------------------------------------------
 STANDOFF_BORE_D = 3.0
 STANDOFF_D, STANDOFF_TOP_Z = 5.82, -132.17   # the board sits on them; not in the model: the board
-IMU_HOLE_D, IMU_PITCH = 2.0, (20.32, 15.24)           # 0.8 x 0.6 in
+IMU_HOLE_D, IMU_PITCH = 2.0, S.IMU.holes.pitch       # 0.8 x 0.6 in: the IMU board's holes (its own: d2.5)
 PLATE_TOP_Z = -142.7                                  # the IMU's seat; not in the model: the IMU
 
 # -- body: free -------------------------------------------------------------------------------------

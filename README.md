@@ -54,7 +54,7 @@ so101 since HEAD: 5 changed, 8 unchanged
 
 | In software | Here |
 |---|---|
-| a library you depend on | `yotown.gym.vendors`: bought parts as classes, one folder per maker (the Feetech `STS3215` servo, `RobStride` actuators), with their facts and sources; standard bearings and inserts in `yotown.gym.standard` |
+| a library you depend on | `yotown.gym.vendors`: bought parts as classes, one folder per maker (Feetech and ROBOTIS servos, RobStride actuators, Raspberry Pi, Adafruit and Waveshare boards), with their facts and sources; standard bearings and inserts in `yotown.gym.standard` |
 | an API | an interface: a bolt circle, a servo seat, a screw. One value, used by both parts it joins |
 | a module | a part program: `robots/<robot>/parts/<part>.py` |
 | configuration | `robots/<robot>/shared.py`: what a robot's parts share |

@@ -8,11 +8,14 @@ blank (plate and tenon) with its own board's holes.
 
 import cadquery as cq
 
+from yotown.gym import shared
+
+S = shared(__file__)                       # SO-101's shared values (../shared.py): its driver board
 PLATE = globals().get("PLATE", {})         # a sibling plate's own values (seeedstudio_plate)
 
 # -- interfaces -- fixed ----------------------------------------------------------------------------
-HOLE_D = 5.0                               # the board's corner screws
-HOLE_PITCH = (37.0, 28.0)                  # x, y
+HOLE_D = 5.0                               # the board's corner screws (the board's own holes: d2.5)
+HOLE_PITCH = S.DRIVER_BOARD.holes.pitch    # x, y: 37 x 28, Waveshare's Bus Servo Adapter (A)
 PLATE_TOP_Z = 4.0                          # the base motor holder sits on it
 TENON_NECK_X, TENON_NECK_Y = 15.9, 15.8    # the dovetail tenon into the holder: where it meets the plate,
 TENON_NECK_H = 1.34                        # straight this high above the plate's top,
