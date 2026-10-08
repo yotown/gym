@@ -64,7 +64,8 @@ so101 since HEAD: 5 changed, 8 unchanged
 | a diff in review | `gym diff`: the material each part gains and loses, and where |
 | semantic versioning | an interface change is a breaking change: a part printed before it won't fit after |
 
-See [docs/design.md](docs/design.md) for how it fits together.
+See [docs/design.md](docs/design.md) for how it fits together, and
+[docs/code-quality.md](docs/code-quality.md) for what makes a part program good and how it is measured.
 
 ## The framework
 
@@ -179,7 +180,7 @@ src/yotown/gym/    the framework (import yotown.gym): interfaces, standard parts
 vendors/<maker>/   bought parts, one folder per maker (import yotown.gym.vendors.<maker>)
 robots/<robot>/    shared.py, parts/<part>.py, the upstream's LICENSE and a NOTICE
 tasks/             training tasks for the robots (planned)
-docs/              the design (design.md), and the maps above (images/)
+docs/              the design (design.md), code quality (code-quality.md), and the maps above (images/)
 ```
 
 ## Make them better
