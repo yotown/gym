@@ -1,5 +1,10 @@
 # Yo.Town Gym
 
+[![PyPI](https://img.shields.io/pypi/v/yotown-gym)](https://pypi.org/project/yotown-gym/)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://pypi.org/project/yotown-gym/)
+[![License](https://img.shields.io/github/license/yotown/gym)](LICENSE)
+[![Publish](https://github.com/yotown/gym/actions/workflows/publish.yml/badge.svg)](https://github.com/yotown/gym/actions/workflows/publish.yml)
+
 ![SO-101, the LeRobot humanoid and Open Duck Mini v2, with every printed part built from its CadQuery program](docs/images/banner.png)
 
 *Orange: the printed parts, built from the programs in this repository. Grey: servos and other bought parts.*
