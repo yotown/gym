@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yotown-gym"
-version = "0.2.3"
+version = "0.2.4"
 description = "Robots as code: every printed part a CadQuery program, built on shared vendor parts and interfaces"
 readme = "README.md"
 license = "Apache-2.0"

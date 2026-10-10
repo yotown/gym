@@ -2,10 +2,10 @@
 
 [![PyPI](https://img.shields.io/pypi/v/yotown-gym)](https://pypi.org/project/yotown-gym/)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://pypi.org/project/yotown-gym/)
-[![License](https://img.shields.io/github/license/yotown/gym)](LICENSE)
+[![License](https://img.shields.io/github/license/yotown/gym)](https://github.com/yotown/gym/blob/main/LICENSE)
 [![Publish](https://github.com/yotown/gym/actions/workflows/publish.yml/badge.svg)](https://github.com/yotown/gym/actions/workflows/publish.yml)
 
-![SO-101, the LeRobot humanoid and Open Duck Mini v2, with every printed part built from its CadQuery program](docs/images/banner.png)
+![SO-101, the LeRobot humanoid and Open Duck Mini v2, with every printed part built from its CadQuery program](https://raw.githubusercontent.com/yotown/gym/main/docs/images/banner.png)
 
 *Orange: the printed parts, built from the programs in this repository. Grey: servos and other bought parts.*
 
@@ -21,11 +21,11 @@ these robots will be added later.
 
 | Robot | Upstream | Printed parts |
 |---|---|---|
-| [SO-101](robots/so101) | TheRobotStudio and Hugging Face, [SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100) | 13 |
-| [Open Duck Mini v2](robots/open_duck_mini_v2) | Antoine Pirrone and contributors, [Open_Duck_Mini](https://github.com/apirrone/Open_Duck_Mini) | 36 |
-| [LeRobot humanoid](robots/lerobot_humanoid) | Hugging Face, [lerobot-humanoid-design](https://github.com/huggingface/lerobot-humanoid-design) | 34 |
+| [SO-101](https://github.com/yotown/gym/tree/main/robots/so101) | TheRobotStudio and Hugging Face, [SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100) | 13 |
+| [Open Duck Mini v2](https://github.com/yotown/gym/tree/main/robots/open_duck_mini_v2) | Antoine Pirrone and contributors, [Open_Duck_Mini](https://github.com/apirrone/Open_Duck_Mini) | 36 |
+| [LeRobot humanoid](https://github.com/yotown/gym/tree/main/robots/lerobot_humanoid) | Hugging Face, [lerobot-humanoid-design](https://github.com/huggingface/lerobot-humanoid-design) | 34 |
 
-These are first versions, and you can help make them better: see [CONTRIBUTING.md](CONTRIBUTING.md).
+These are first versions, and you can help make them better: see [CONTRIBUTING.md](https://github.com/yotown/gym/blob/main/CONTRIBUTING.md).
 
 ## Quick start
 
@@ -69,14 +69,14 @@ so101 since HEAD: 5 changed, 8 unchanged
 | a diff in review | `gym diff`: the material each part gains and loses, and where |
 | semantic versioning | an interface change is a breaking change: a part printed before it won't fit after |
 
-See [docs/design.md](docs/design.md) for how it fits together, and
-[docs/code-quality.md](docs/code-quality.md) for what makes a part program good and how it is measured.
+See [docs/design.md](https://github.com/yotown/gym/blob/main/docs/design.md) for how it fits together, and
+[docs/code-quality.md](https://github.com/yotown/gym/blob/main/docs/code-quality.md) for what makes a part program good and how it is measured.
 
 ## The framework
 
 Bought parts (servos, actuators, bearings) are Python classes with their dimensions from the maker's
-datasheet, one folder per maker in [vendors/](vendors). The actuator classes also have their torque ratings.
-Makers are welcome to list their own parts: see [vendors/README.md](vendors/README.md).
+datasheet, one folder per maker in [vendors/](https://github.com/yotown/gym/tree/main/vendors). The actuator classes also have their torque ratings.
+Makers are welcome to list their own parts: see [vendors/README.md](https://github.com/yotown/gym/blob/main/vendors/README.md).
 
 
 ```python
@@ -141,11 +141,11 @@ original. Each printed part's surface is coloured by how far it is from the upst
 part: blue lies on it, red is 2 mm or more away. Grey parts are bought (servos, bearings, boards) and are
 not redrawn.
 
-![SO-101](docs/images/so101.png)
+![SO-101](https://raw.githubusercontent.com/yotown/gym/main/docs/images/so101.png)
 
-![Open Duck Mini v2](docs/images/open_duck_mini_v2.png)
+![Open Duck Mini v2](https://raw.githubusercontent.com/yotown/gym/main/docs/images/open_duck_mini_v2.png)
 
-![LeRobot humanoid](docs/images/lerobot_humanoid.png)
+![LeRobot humanoid](https://raw.githubusercontent.com/yotown/gym/main/docs/images/lerobot_humanoid.png)
 
 | Robot | Within 0.1 mm | Within 0.5 mm | Within 1 mm | Parts shown |
 |---|---|---|---|---|
@@ -204,7 +204,7 @@ Keep the interfaces exact. If you change one, change the part it fits in the sam
 named and written once, and make sure the part still builds as one valid solid.
 
 Run `gym check` and `gym diff` before you open a pull request, and say what changed: the line count
-before and after, or the new parameters and what they do. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest.
+before and after, or the new parameters and what they do. [CONTRIBUTING.md](https://github.com/yotown/gym/blob/main/CONTRIBUTING.md) has the rest.
 Or write to help@yotown.com.
 
 ## Licences

@@ -5,6 +5,11 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.2.4
+
+Interface changes: none. The README's images and links are full URLs, so PyPI's project page shows
+the pictures and its links lead somewhere.
+
 ## 0.2.3
 
 Interface changes: none. Packaging only.
