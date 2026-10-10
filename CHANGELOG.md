@@ -5,6 +5,23 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.2.2
+
+Interface changes: none to existing interfaces. New types, and the Duck's leg parts read their numbers
+from them (every changed part builds the same solid as in 0.2.1).
+
+- `yotown.gym.standard.materials`: print materials by density (PLA, PETG, ABS, TPU: typical value and the
+  range makers list), `PrintSettings` (material, skin depth, infill; defaults PLA, 0.8 mm, 30 %) and
+  `printed_mass`, a printed part's mass from its volume, surface area and settings (a solid skin over
+  infill), so a part's weight follows its shape.
+- `interfaces.ServoFaces` and `CaseFace`: a servo's faces as the parts around it fit them (the horn's and
+  the idler's bolt circles and hubs, each case face's level, screws and raised middle), in one frame on
+  the output axis; `feetech.STS3215` carries its faces and its mass.
+- Open Duck Mini v2: the leg's sheets, spacer and feet take their seats from the servo's faces, so a leg
+  joint can take an STS3215 or a ROBOTIS XC430 (`shared.SERVOS`); screw holes come from one clearance
+  table by thread (`shared.CLEARANCE`). Shapes unchanged.
+- `docs/code-quality.md`: how a part program is written and judged.
+
 ## 0.2.1
 
 Interface changes: none. New makers and types only.

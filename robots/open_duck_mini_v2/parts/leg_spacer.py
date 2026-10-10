@@ -1,6 +1,6 @@
 """Open Duck Mini v2 leg spacer, written from its STEP: interfaces exact, the body simple.
 
-A bar along y between the knee-to-ankle sheets: a bow-tie section (two lobes, one round each rod, and a
+A bar along y between the knee-to-ankle sheets (as long as the horn servo's horn-to-idler span): a bow-tie section (two lobes, one round each rod, and a
 waist between them: from above and below a V of WAIST_SLOPE_DEG, rounded R10 at its foot) holding the two rods,
 each through a 2 mm hole with a 4 mm counterbore at both ends; two 6 mm holes go through the waist across it.
 
@@ -16,8 +16,11 @@ from yotown.gym import shared
 S = shared(__file__)                       # the Duck's shared values (../shared.py)
 
 # -- interfaces -- fixed ----------------------------------------------------------------------------
+HORN_SERVO = S.SERVOS["sts3215"]           # the servo whose horn and idler the leg's two sheets sit on
 AXIS_X, AXIS_Z = -16.06, -163.975          # the bar's middle
-Y_FROM, Y_TO = 72.15, 109.05               # between the leg's two sheets
+HORN_FACE_Y = 109.15                       # the outer sheet's seat (the horn's face); the inner's is the idler's face
+SHEET_GAP = 0.1                            # clear of each sheet's seat
+Y_FROM, Y_TO = HORN_FACE_Y - HORN_SERVO.faces.idler_face + SHEET_GAP, HORN_FACE_Y - SHEET_GAP   # between the leg's two sheets
 ROD_D = 2.0                                # through,
 ROD_BORE_D = 4.0                           # counterbored at both ends
 ROD_BORE_DEEP = 5.8

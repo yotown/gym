@@ -10,7 +10,8 @@ import runpy
 here = os.path.dirname(os.path.abspath(__file__))
 SOURCE = next(p for p in (os.path.join(here, "..", "left_knee_to_ankle_left_sheet", "written.py"),
                           os.path.join(here, "left_knee_to_ankle_left_sheet.py")) if os.path.exists(p))
-SHEET = dict(link=66.0, thick=4.0, foot_w=30.72,
+LINK = 66.0                                  # the neck: the neck pitch's axis to the head pitch's (a design value)
+SHEET = dict(link=LINK, thick=4.0, foot_w=30.72,
              lean_from_v=30.89, lean_deg=7.85,                # measured
              block_back=54.11, servo_seat_w=-1.95, pocket_w=14.2, pocket_back=35.11, rim=1.1, step=None,
              rods=None, servo_head_w=0.0,

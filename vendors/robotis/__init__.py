@@ -6,13 +6,28 @@ Sources: the ROBOTIS e-manual page of each model, https://emanual.robotis.com/do
 ROBOTIS publishes STALL torque: what the servo gives with its shaft held still, at its stall current. It
 is not a torque to hold continuously; plan a joint's continuous load well below it.
 
-Not included yet: the case's mounting holes and the horn's pattern. They are in ROBOTIS's drawings
-(the Drawings section of each page), which are to be read before a printed part depends on them.
+The faces a plate screws to (`faces`, the X430 case only so far): measured from ROBOTIS's XC430 model as
+ToddlerBot's SysID rig places it (Stanford, CC BY-NC-SA 4.0). To be checked against ROBOTIS's drawing
+(the Drawings section of each page) before a published part depends on them.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from yotown.gym.interfaces import BoltCircle, CaseFace, ServoFaces
+
+# the X430 case (XL430, XC430, XM430) as plates screwed across its axis see it; from the horn's face, into the
+# servo (ServoFaces). Its faces are flat, with four M2.5 holes each.
+X430_FACES = ServoFaces(
+    horn=BoltCircle(16.0, 4, 0.0), horn_thread="M2",      # the horn's four threaded positions (ToddlerBot's links screw there)
+    hub_d=8.0, hub_proud=1.9,                              # the horn's disc face is the origin; its hub stands out of it
+    idler_face=38.0,
+    idler=BoltCircle(16.0, 4, 0.0), idler_hub_d=7.8, idler_hub_proud=1.0,
+    case_near=11.25, case_back=35.25, case_width=28.5,
+    horn_side=CaseFace(level=2.0, screws=((-8.0, -11.0), (-8.0, 11.0), (32.0, -11.0), (32.0, 11.0)), thread="M2.5"),
+    idler_side=CaseFace(level=36.0, screws=((-8.0, -11.0), (-8.0, 11.0), (32.0, -11.0), (32.0, 11.0)), thread="M2.5"),
+)
 
 
 @dataclass(frozen=True)
@@ -30,6 +45,7 @@ class Dynamixel:
     stall: tuple                    # ((N m, at V, at A), ...)
     no_load_rpm: tuple              # ((rev/min, at V), ...)
     axes: int = 1                   # 2: two servos in one case (2XL430, 2XC430)
+    faces: ServoFaces | None = None # where a plate screws to it, when measured
 
     def stall_nm(self, volts: float) -> float:
         """The stall torque at the listed voltage closest to `volts`."""
@@ -50,7 +66,7 @@ XL430_W250 = Dynamixel("XL430-W250-T", 28.5, 46.5, 34.0, 57.2, 258.5, (6.5, 12.0
                        ((47, 9.0), (57, 11.1), (61, 12.0)))
 XC430_W240 = Dynamixel("XC430-W240-T", 28.5, 46.5, 34.0, 65, 245.22, (6.5, 14.8),
                        ((1.4, 9.0, 1.1), (1.7, 11.1, 1.3), (1.9, 12.0, 1.4)),
-                       ((52, 9.0), (65, 11.1), (70, 12.0)))
+                       ((52, 9.0), (65, 11.1), (70, 12.0)), faces=X430_FACES)
 XM430_W210 = Dynamixel("XM430-W210-T", 28.5, 46.5, 34.0, 82, 212.6, (10.0, 14.8),
                        ((2.7, 11.1, 2.1), (3.0, 12.0, 2.3), (3.7, 14.8, 2.7)),
                        ((70, 11.1), (77, 12.0), (95, 14.8)))

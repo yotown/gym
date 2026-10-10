@@ -9,6 +9,10 @@ LINK is the design's length: the horn's axis to the next servo's (the leg's thig
 neck's link, 66). Everything at the foot end -- the next servo's seat, its screws, the foot -- is placed
 back from that axis, so a longer link moves the seat and keeps the servo's fit.
 
+The servos are choices (HORN_SERVO at the round end, CASE_SERVO at the foot end, from the Duck's SERVOS):
+every fit to them -- the horn's holes and hub, the case's pocket, the step for its face's raised middle,
+its screws, the seat's depth, the idler side's place -- is read from the servo's faces (ServoFaces).
+
 A plate: round about the horn's axis at one end, a rectangle at the other (the foot), its sides leaning
 in between; its outer face's edges chamfered. On its inner face the horn sits, held by four screws
 counterbored from the outer face; a slot runs from the horn's bore to the round end. Behind the foot a
@@ -29,53 +33,71 @@ import cadquery as cq
 from yotown.gym import shared
 
 S = shared(__file__)                       # the Duck's shared values (../shared.py)
-SERVO, HORN, HORN_SCREW = S.SERVO, S.HORN, S.HORN_SCREW
 
 H = globals().get("SHEET", {})             # the other sheets' differences
-PLACE = globals().get("PLACE", dict(origin=(-16.06, 109.15, -143.65), v=(0, 0, -1), w=(0, 1, 0)))   # the outer knee-to-ankle sheet
+SIDE = H.get("side", "horn")               # the servos' side it is on: "horn" (this, the outer sheet) or "idler"
 
 # -- interfaces -- fixed ----------------------------------------------------------------------------
+HORN_SERVO = S.SERVOS["sts3215"]           # the servo whose horn (or idler) it takes, at its round end
+CASE_SERVO = S.SERVOS["sts3215"]           # the next servo, whose case it holds, at its foot end
 LINK = H.get("link", 78.65)                # the horn's axis to the next servo's horn axis (along v)
-# the horn, on the seat (w = 0)
-HORN_THROUGH_D = 7.0                       # through, on its axis
-HORN_SCREW_HEAD_SEAT = H.get("horn_head_w", 2.9)   # its seat (w)
+# where it sits: the horn servo's horn face on its axis (the leg's outer plane), and the way into the
+# servos from it, in the vendor's frame; the next servo's horn face is in the same plane
+HORN_FACE = (-16.06, 109.15, -143.65)
+INTO = (0, -1, 0)
+V = (0, 0, -1)                             # along the link, towards the next servo
+# the horn (or the idler), on the seat (w = 0)
+hf, cf = HORN_SERVO.faces, CASE_SERVO.faces
+horn = hf.horn if SIDE == "horn" else hf.idler
+HORN_HOLES = horn.rotated(-horn.first_deg)   # the horn clocked so its holes lie on the frame's axes
+HORN_SCREW = S.CLEARANCE[hf.horn_thread]
+HUB_D, HUB_PROUD = (hf.hub_d, hf.hub_proud) if SIDE == "horn" else (hf.idler_hub_d, hf.idler_hub_proud)
+HORN_THROUGH_D = HUB_D + 1.0               # through, on its axis
+HORN_HEAD_OVER_RELIEF = 1.5                # its seat (w): 2.9, or this far over the hub's relief if a taller hub needs it
 RODS = H.get("rods", True)                 # the leg spacer's rods through, or none:
 ROD_V = 20.325
 ROD_D = 3.2
 ROD_HEAD_D = 6.5
 ROD_HEAD_SEAT = H.get("rod_head_w", 1.9)   # (w)
-# the next servo, its case on the pocket's floor; each from that far back from its axis (v = LINK - back)
-SERVO_SEAT_W = H.get("servo_seat_w", -3.15)   # the case's face on the pocket's floor
-POCKET_W = H.get("pocket_w", 24.7)         # the case's pocket: wide,
-POCKET_BACK = H.get("pocket_back", 35.11)  # back
-STEP = H.get("step", True)                 # a narrower, deeper step in its floor, or none:
-STEP_W = H.get("step_w", 14.0)
-STEP_DEEP = H.get("step_deep", 1.1)        # below the seat
-SERVO_SCREW_BACK = H.get("servo_back", 29.0)
-SERVO_SCREW_HEAD_D = 5.0
-SERVO_SCREW_HEAD_SEAT = H.get("servo_head_w", -1.1)   # (w)
+# the next servo, its case's face (on this side) on the pocket's floor; each from that far back from its axis (v = LINK - back)
+face = cf.side(SIDE)
+seat_depth = 0.0 if SIDE == "horn" else hf.idler_face   # this sheet's seat, from the outer plane into the servos
+SERVO_SEAT_W = H.get("servo_seat_w", (seat_depth - face.level) if SIDE == "horn" else (face.level - seat_depth))
+POCKET_FIT = -0.02                         # the case's pocket: as wide as the case, less this (a press fit),
+POCKET_W = H.get("pocket_w", cf.case_width + POCKET_FIT)
+POCKET_BACK = H.get("pocket_back", cf.case_back)   # back to its far end
+STEP = H.get("step", True) and face.boss is not None   # a narrower, deeper step in its floor, for the face's raised middle, or none:
+STEP_W, STEP_BACK, STEP_DEEP = face.boss if STEP else (None, None, None)
+SERVO_SCREW = S.CLEARANCE[face.thread]
+FOOT_BACK = H.get("foot_back", 19.0)       # the plate's foot: back from the next servo's axis (the screws it reaches are further back)
+SERVO_SCREWS = [(across, back) for back, across in face.screws if back > FOOT_BACK]
+if "servo_back" in H:                      # a sheet that takes the screws elsewhere
+    SERVO_SCREWS = [(s * S.SERVO.tab_half_pitch, H["servo_back"]) for s in (-1, 1)]
+SERVO_SCREW_GRIP = H.get("servo_grip", 2.05)   # under each screw's head, to the case's face
+SERVO_SCREW_HEAD_SEAT = H.get("servo_head_w", SERVO_SEAT_W + SERVO_SCREW_GRIP)   # (w)
 
 # -- body: free -------------------------------------------------------------------------------------
-STEP_BACK = H.get("step_back", 35.11)      # the step, from this far back
 THICK = H.get("thick", 3.9)
-FOOT_BACK = H.get("foot_back", 19.0)       # the plate's foot: back from the next servo's axis,
-FOOT_W = H.get("foot_w", 30.7)             # this wide
+SIDE_WALL = 3.0                            # this wide: the case's pocket with a wall each side
+FOOT_W = H.get("foot_w", POCKET_W + 2 * SIDE_WALL)
 LEAN_FROM_V = H.get("lean_from_v", 33.54)  # nearer the horn than this the sides lean in,  # measured
 LEAN_DEG = H.get("lean_deg", 7.24)         # measured
 ROUND_R = 11.0                             # the round end, about the horn's axis
 CHAMFER = 1.0                              # the outer face's edges
-BLOCK_BACK = H.get("block_back", 38.11)    # the block behind the foot, from this far back (within the plate's outline)
+BACK_WALL = 3.0                            # the block behind the foot: the pocket's back wall,
+BLOCK_BACK = H.get("block_back", POCKET_BACK + BACK_WALL)   # from this far back (within the plate's outline)
 RIM = H.get("rim", 1.4)                    # the pocket's rim stands this far past the seat
 CABLE = "cable_w" in H                     # a slot for the cable up the block, or none:
 CABLE_W = H.get("cable_w")
-CABLE_BACK = H.get("cable_back")
+CABLE_BACK = H.get("cable_back", BLOCK_BACK)   # through the back wall
 CABLE_TOP_W = H.get("cable_top_w")         # up to w,
-CABLE_END_R = H.get("cable_end_r")         # its end round about w = CABLE_END_W
-CABLE_END_W = H.get("cable_end_w")
-RELIEF_W = 7.6                             # clears the horn: from its bore to the round end, in the seat,
-RELIEF_DEEP = H.get("inner_bore_deep", 1.4)
+CABLE_END_R = H.get("cable_end_r")         # its end round about w = CABLE_END_W, meeting its top
+CABLE_END_W = H.get("cable_end_w", CABLE_TOP_W - CABLE_END_R if CABLE else None)
+RELIEF_W = HUB_D + 1.6                     # clears the horn: from its bore to the round end, in the seat,
+RELIEF_DEEP = max(H.get("inner_bore_deep", 1.4), HUB_PROUD + 0.5)
 RELIEF_R = 1.0                             # its corners
-HUB_D = 7.6                                # and the horn's hub, into the seat as deep
+HUB_BORE_D = HUB_D + 1.6                   # and the horn's hub, into the seat as deep
+HORN_SCREW_HEAD_SEAT = H.get("horn_head_w", max(2.9, RELIEF_DEEP + HORN_HEAD_OVER_RELIEF))
 FOOT_V = LINK - FOOT_BACK
 BLOCK_FROM = LINK - BLOCK_BACK
 
@@ -112,7 +134,7 @@ sheet = sheet.cut(at_w(0).center(0, -ROUND_R).rect(RELIEF_W, 2 * ROUND_R).extrud
 low = min(rim, 0) - 1                      # through: from below the lowest face ...
 span = THICK - low + 1                     # ... to past the outer one
 through = at_w(low)
-sheet = sheet.cut(at_w(0).circle(HUB_D / 2).extrude(RELIEF_DEEP)).cut(through.circle(HORN_THROUGH_D / 2).extrude(span))
+sheet = sheet.cut(at_w(0).circle(HUB_BORE_D / 2).extrude(RELIEF_DEEP)).cut(through.circle(HORN_THROUGH_D / 2).extrude(span))
 
 
 def screws(pts, d, head_d, head_w):
@@ -122,13 +144,15 @@ def screws(pts, d, head_d, head_w):
     sheet = sheet.cut(at_w(head_w).pushPoints(pts).circle(head_d / 2).extrude(THICK - head_w + 1))
 
 
-screws(HORN.points(), HORN_SCREW.hole_d, HORN_SCREW.head_d, HORN_SCREW_HEAD_SEAT)
+screws(HORN_HOLES.points(), HORN_SCREW.hole_d, HORN_SCREW.head_d, HORN_SCREW_HEAD_SEAT)
 if RODS:
     screws([(-S.LEG_ROD_PITCH / 2, ROD_V), (S.LEG_ROD_PITCH / 2, ROD_V)], ROD_D, ROD_HEAD_D, ROD_HEAD_SEAT)
-v = LINK - SERVO_SCREW_BACK
-screws([(-SERVO.tab_half_pitch, v), (SERVO.tab_half_pitch, v)], S.SERVO_SCREW_D, SERVO_SCREW_HEAD_D, SERVO_SCREW_HEAD_SEAT)
+screws([(across, LINK - back) for across, back in SERVO_SCREWS], SERVO_SCREW.hole_d, SERVO_SCREW.head_d, SERVO_SCREW_HEAD_SEAT)
 
-# into the vendor's frame: u = v x w
+# into the vendor's frame: u = v x w; the idler side's seat is the horn servo's idler face, looking the other way
+into = cq.Vector(*INTO)
+PLACE = globals().get("PLACE") or dict(origin=(cq.Vector(*HORN_FACE) + into * seat_depth).toTuple(), v=V,
+                                       w=(-into if SIDE == "horn" else into).toTuple())
 v, w = cq.Vector(*PLACE["v"]), cq.Vector(*PLACE["w"])
 frame = cq.Plane(origin=PLACE["origin"], xDir=v.cross(w), normal=w)
 result = cq.Workplane(obj=sheet.val().transformShape(frame.rG))

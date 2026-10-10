@@ -2,14 +2,29 @@
 
 Sources: Feetech's STS3215 2D drawing, as Waveshare publishes it for the ST3215
 (https://files.waveshare.com/upload/0/08/ST3215-2D.zip), and the STS3215 STEP in TheRobotStudio's
-SO-ARM100 (Apache-2.0). Where the two differ, both are given.
+SO-ARM100 (Apache-2.0). Where the two differ, both are given. The faces a plate screws to (`faces`): the
+STS3215 and its horns as Open Duck Mini v2 places them (Apache-2.0: its Onshape assembly, exported as
+STEP), which agree with the SO-ARM100 STEP's tab holes within 0.05 mm.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from yotown.gym.interfaces import BoltCircle
+from yotown.gym.interfaces import BoltCircle, CaseFace, ServoFaces
+
+# the STS3215 as plates screwed across its axis see it; from the horn's face, into the servo (ServoFaces)
+STS3215_FACES = ServoFaces(
+    horn=BoltCircle(14.0, 4, 45.0), horn_thread="M3",     # the horn's holes d2.5: M3 self-tapping
+    hub_d=6.0, hub_proud=0.0,                              # the hub is below the horn's face
+    idler_face=37.1,                                       # the idler horn (the passive horn) that comes with it
+    idler=BoltCircle(14.0, 4, 45.0), idler_hub_d=6.0, idler_hub_proud=0.0,
+    case_near=10.11, case_back=35.11, case_width=24.72,
+    horn_side=CaseFace(level=3.15, screws=((8.3, -10.25), (8.3, 10.25), (29.0, -10.25), (29.0, 10.25)), thread="M2",
+                       boss=(14.0, 35.11, 1.1)),           # the tabs' face; the case's middle stands 1.1 proud of it
+    idler_side=CaseFace(level=35.15, screws=((8.3, -10.25), (8.3, 10.25), (32.75, -10.25), (32.75, 10.25)), thread="M2",
+                        boss=(18.48, 29.75, 1.9)),         # the far tabs: 32.8 in the SO-ARM100 STEP
+)
 
 
 @dataclass(frozen=True)
@@ -29,6 +44,8 @@ class STS3215:
     horn_disc_d: float = 19.2       # the horn disc (drawing; the STEP models d20)
     hub_d: float = 6.0              # the horn's hub, and the idler boss at the other end
     tab_half_pitch: float = 10.25   # the mounting tabs' screws, either side of the case's centre line
+    faces: ServoFaces = field(default=STS3215_FACES)
+    mass_g: float = 60.0            # the Duck's and SO-101's models (Feetech gives no text spec)
 
     @property
     def length(self) -> float:

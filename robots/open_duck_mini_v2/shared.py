@@ -7,13 +7,17 @@ follows. A value only one part uses stays in that part.
 from yotown.gym.interfaces import Screw
 from yotown.gym.standard.fasteners import HeatSetInsert
 from yotown.gym.vendors.feetech import STS3215
+from yotown.gym.vendors.robotis import XC430_W240
 
 SERVO = STS3215()                          # every joint
 HORN = SERVO.horn.rotated(-45.0)           # the Duck's parts put the horn's four holes on their frame's axes
+SERVOS = {"sts3215": SERVO, "xc430": XC430_W240}   # what the leg's mounts are written for: a leg joint takes one of these
 
 # the screws and inserts, as the printed parts take them
-HORN_SCREW = Screw(hole_d=3.2, head_d=6.5)  # into the horn (the head's parts counterbore their heads 5.5)
-SERVO_SCREW_D = 2.5                        # into the servo's tabs (their heads differ by part)
+CLEARANCE = {"M2": Screw(hole_d=2.5, head_d=5.0), "M2.5": Screw(hole_d=2.9, head_d=5.5),
+             "M3": Screw(hole_d=3.2, head_d=6.5)}   # a screw's hole and head in a printed part, by its thread
+HORN_SCREW = CLEARANCE[SERVO.faces.horn_thread]   # into the horn (the head's parts counterbore their heads 5.5)
+SERVO_SCREW_D = CLEARANCE["M2"].hole_d     # into the servo's tabs (their heads differ by part)
 INSERT = HeatSetInsert(hole_d=4.0, depth=5.8, thread="M3")   # in the body's shells, the trunk and the feet
 
 # -- mates: values two parts in one frame both fit -------------------------------------------------

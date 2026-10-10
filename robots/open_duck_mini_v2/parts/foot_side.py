@@ -9,8 +9,5 @@ import runpy
 
 here = os.path.dirname(os.path.abspath(__file__))
 SOURCE = next(p for p in (os.path.join(here, "..", "foot_top", "written.py"), os.path.join(here, "foot_top.py")) if os.path.exists(p))
-FOOT = dict(back=102.05, pocket_to=105.55, sole_lip=None, windows=None,
-            pin_holes=[(3.5, 102.05, 108.05), (6.5, 108.05, 114.05)],
-            foot_edge=((102.05, -245.758), 12.0),             # measured
-            mirror_about_y=90.6)                              # foot_top's outer face (114.05) onto foot_side's (67.15)
+FOOT = dict(side="idler", sole_lip=None, windows=None)   # its plate on the ankle servo's idler, mirrored onto it
 result = runpy.run_path(SOURCE, init_globals={"FOOT": FOOT})["result"]

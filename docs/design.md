@@ -57,6 +57,24 @@ Where two parts meet (a bolt circle, a seat, a screw hole and its head), the dim
 a value and both parts use it, so they always match. Values are not changed in place; a variant is a new
 value, for example `SERVO.horn.rotated(-2.8)`.
 
+### What a printed part weighs
+
+A printed part is solid only in its walls, so it weighs less than its volume of plastic, and how much
+less depends on its shape: a thin sheet prints almost solid, a chunky block mostly infill.
+`yotown.gym.standard.materials` holds the materials' densities and `printed_mass(volume, area, settings)`,
+which counts a solid skin over the part's surface and infill inside. How a part is printed is a value,
+`PrintSettings(material=PLA, skin=0.8, infill=0.30)` by default: a robot's `shared.py` sets its own once
+(`PRINT = PrintSettings(infill=0.2)`), and a part printed differently (a TPU sole) passes its own. A
+robot's model takes each printed link's mass from it; your slicer's grams, or a print on a scale,
+calibrate it.
+
+| Material | Density, solid (g/cm³) |
+|---|---|
+| PLA | 1.24 (1.21 to 1.25) |
+| PETG | 1.27 (1.23 to 1.29) |
+| ABS | 1.04 (1.01 to 1.08) |
+| TPU | 1.21 (1.10 to 1.23) |
+
 ### A part is a program
 
 A part file starts with its parameters in two groups:
