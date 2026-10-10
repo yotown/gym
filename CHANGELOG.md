@@ -5,6 +5,14 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.2.3
+
+Interface changes: none. Packaging only.
+
+- Published on PyPI: `pip install yotown-gym` installs `yotown.gym` and its vendor catalogue (the robots'
+  part programs stay in this repository). Each version tag publishes itself.
+- `project.license` is the SPDX string `Apache-2.0`.
+
 ## 0.2.2
 
 Interface changes: none to existing interfaces. New types, and the Duck's leg parts read their numbers
