@@ -1,0 +1,322 @@
+<mujoco model="flamingo">
+  <compiler angle="radian"/>
+
+  <option timestep="0.005" integrator="implicitfast" iterations="10" ls_iterations="20" ccd_iterations="50"/>
+
+  <size nkey="1"/>
+
+  <visual>
+    <global azimuth="135" elevation="-25" offwidth="1920" offheight="1080"/>
+    <quality shadowsize="8192"/>
+    <headlight ambient="0.3 0.3 0.3" diffuse="0.6 0.6 0.6" specular="0 0 0"/>
+    <scale forcewidth="0.25" contactwidth="0.4" contactheight="0.15" framelength="5" framewidth="0.3"/>
+    <rgba haze="0.15 0.25 0.35 1" force="1 0 0 1"/>
+  </visual>
+
+  <statistic meansize="0.03"/>
+
+  <asset>
+    <texture type="2d" colorspace="auto" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="4 4"/>
+    <mesh name="robot/body_front" content_type="model/stl" file="meshes/body_front.stl"/>
+    <mesh name="robot/body_back" content_type="model/stl" file="meshes/body_back.stl"/>
+    <mesh name="robot/body_middle_bottom" content_type="model/stl" file="meshes/body_middle_bottom.stl"/>
+    <mesh name="robot/battery_pack_lid" content_type="model/stl" file="meshes/battery_pack_lid.stl"/>
+    <mesh name="robot/body_middle_top" content_type="model/stl" file="meshes/body_middle_top.stl"/>
+    <mesh name="robot/trunk_bottom" content_type="model/stl" file="meshes/trunk_bottom.stl"/>
+    <mesh name="robot/trunk_top" content_type="model/stl" file="meshes/trunk_top.stl"/>
+    <mesh name="robot/roll_motor_bottom" content_type="model/stl" file="meshes/roll_motor_bottom.stl"/>
+    <mesh name="robot/roll_motor_top" content_type="model/stl" file="meshes/roll_motor_top.stl"/>
+    <mesh name="robot/left_roll_to_pitch" content_type="model/stl" file="meshes/left_roll_to_pitch.stl"/>
+    <mesh name="robot/foot_side" content_type="model/stl" file="meshes/foot_side.stl"/>
+    <mesh name="robot/foot_bottom_tpu" content_type="model/stl" file="meshes/foot_bottom_tpu.stl"/>
+    <mesh name="robot/foot_bottom_pla" content_type="model/stl" file="meshes/foot_bottom_pla.stl"/>
+    <mesh name="robot/foot_top" content_type="model/stl" file="meshes/foot_top.stl"/>
+    <mesh name="robot/right_roll_to_pitch" content_type="model/stl" file="meshes/right_roll_to_pitch.stl"/>
+    <mesh name="robot/neck_left_sheet" content_type="model/stl" file="meshes/neck_left_sheet.stl"/>
+    <mesh name="robot/neck_right_sheet" content_type="model/stl" file="meshes/neck_right_sheet.stl"/>
+    <mesh name="robot/head_pitch_to_yaw" content_type="model/stl" file="meshes/head_pitch_to_yaw.stl"/>
+    <mesh name="robot/left_cache" content_type="model/stl" file="meshes/left_cache.stl"/>
+    <mesh name="robot/leg_spacer" content_type="model/stl" file="meshes/leg_spacer.stl"/>
+    <mesh name="robot/thigh_right_sheet" content_type="model/stl" file="meshes/thigh_right_sheet.stl"/>
+    <mesh name="robot/shin_right_sheet" content_type="model/stl" file="meshes/shin_right_sheet.stl"/>
+    <mesh name="robot/thigh_left_sheet" content_type="model/stl" file="meshes/thigh_left_sheet.stl"/>
+    <mesh name="robot/shin_left_sheet" content_type="model/stl" file="meshes/shin_left_sheet.stl"/>
+    <mesh name="robot/right_cache" content_type="model/stl" file="meshes/right_cache.stl"/>
+    <mesh name="robot/wing_mount" content_type="model/stl" file="meshes/wing_mount.stl"/>
+    <mesh name="robot/wing" content_type="model/stl" file="meshes/wing.stl"/>
+    <mesh name="robot/roll_bracket" content_type="model/stl" file="meshes/roll_bracket.stl"/>
+    <mesh name="robot/skull" content_type="model/stl" file="meshes/skull.stl"/>
+    <mesh name="robot/nape" content_type="model/stl" file="meshes/nape.stl"/>
+    <mesh name="robot/eye" content_type="model/stl" file="meshes/eye.stl"/>
+  </asset>
+
+  <worldbody>
+    <site name="env_origin_0" pos="0 0 0" size="0.3" group="4" rgba="0.2 0.6 0.2 0.3"/>
+    <light pos="0 0 1.5" dir="0 0 -1" type="directional"/>
+    <body name="terrain">
+      <geom name="terrain" size="0 0 0.01" type="plane" material="groundplane"/>
+    </body>
+    <body name="robot/base" pos="0 0 0.382797">
+      <joint name="robot/floating_base" type="free"/>
+      <site name="robot/imu" pos="-0.08 0 0.05"/>
+      <body name="robot/trunk_assembly">
+        <inertial pos="-0.0423196 -7.69214e-05 0.0441606" quat="-0.00592711 0.667804 0.00317254 0.744307" mass="0.847624" diaginertia="0.00409318 0.00380348 0.00272603"/>
+        <geom pos="-0.019 0 0.0648909" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/body_front"/>
+        <geom size="0.00182754 0.00849283 0.0194271" pos="-0.1263 -0.0297133 0.0596134" quat="-0.706958 -0.0144974 -0.0144974 0.706958" type="box" contype="0" conaffinity="0" rgba="0.615686 0.811765 0.929412 1"/>
+        <geom pos="-0.019 0 0.0648909" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/body_back"/>
+        <geom pos="-0.019 0 0.0648909" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/body_middle_bottom"/>
+        <geom size="0.00340333 0.00525361 0.00831614" pos="-0.126853 0 0.0954123" quat="0.67731 0.203105 0.203105 0.67731" type="box" contype="0" conaffinity="0" rgba="0.901961 0.901961 0.901961 1"/>
+        <geom size="0.0018 0.007925 0.0203" pos="-0.177397 -0.0285 0.00822578" quat="0 0.707107 -0.707107 0" type="box" contype="0" conaffinity="0" rgba="0.231373 0.380392 0.705882 1"/>
+        <geom pos="-0.019 0 0.0648909" type="mesh" contype="0" conaffinity="0" rgba="0.231373 0.380392 0.705882 1" mesh="robot/battery_pack_lid"/>
+        <geom pos="-0.019 0 0.0648909" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/body_middle_top"/>
+        <geom size="0.00144982 0.00997193 0.0136248" pos="-0.08711 0 0.0447909" quat="0.5 0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.615686 0.811765 0.929412 1"/>
+        <geom size="0.003161 0.0136087 0.0136087" pos="-0.019 0.07 -0.0986591" quat="0.5 0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.6 0.6 0.6 1"/>
+        <geom pos="-0.019 0 0.0648909" type="mesh" contype="0" conaffinity="0" rgba="0.180392 0.180392 0.180392 1" mesh="robot/trunk_bottom"/>
+        <geom pos="-0.019 0 0.0648909" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.180392 0.180392 0.180392 1" mesh="robot/trunk_top"/>
+        <geom size="0.000757423 0.0165132 0.0205377" pos="-0.105982 -0.0165594 0.0587909" quat="0.707057 -0.00838897 -0.707057 -0.00838897" type="box" contype="0" conaffinity="0" rgba="0 0.501961 0 1"/>
+        <geom size="0.003161 0.0136087 0.0136087" pos="-0.019 -8.1249e-10 -0.0986591" quat="0.5 0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.6 0.6 0.6 1"/>
+        <geom size="0.00777135 0.00777135 0.032324" pos="-0.129625 -0.0105 1.3415e-05" quat="0 -0.457466 -0.889227 0" type="box" contype="0" conaffinity="0" rgba="0.615686 0.811765 0.929412 1"/>
+        <geom size="0.00857828 0.0210299 0.0393307" pos="-0.121208 0.0635244 0.033572" quat="0 1 0 0" type="box" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1"/>
+        <geom size="0.00777135 0.00777135 0.032324" pos="-0.129625 0.0105 0.0650134" quat="0.930459 0 0 0.366396" type="box" contype="0" conaffinity="0" rgba="0.615686 0.811765 0.929412 1"/>
+        <geom size="0.00164659 0.00810268 0.00810268" pos="0.00100012 0.0246172 0.115501" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00117126 0.00807055 0.00807055" pos="0.00100011 -0.0452722 0.115501" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00164659 0.00810268 0.00810268" pos="0.00650014 -0.0350001 0.0404737" quat="-0.5 -0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00117126 0.00807055 0.00807055" pos="0.00649994 -0.0350001 0.110363" quat="-0.5 -0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00164659 0.00810268 0.00810268" pos="0.00650014 0.0349999 0.0404737" quat="0.5 0.5 0.5 -0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00117126 0.00807055 0.00807055" pos="0.00649994 0.0349999 0.110363" quat="0.5 0.5 0.5 -0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom name="robot/left_wing_mount" pos="0.012 0.09741 0.0687784" quat="0.5 0.5 -0.5 -0.5" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/wing_mount"/>
+        <geom size="0.0054547 0.013067 0.0241722" pos="-0.0136992 0.0978302 0.0687756" quat="0.707234 0.70698 0 0" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00164659 0.00810268 0.00810268" pos="0.0174672 0.12291 0.0687693" quat="1 -0.000179599 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0390907 0.0965451 0.0687778" quat="0.707134 0.70688 -0.0118693 -0.011865" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00350574 0.011953 0.0224781" pos="0.0075795 0.0969853 0.0687795" quat="0.707167 0.706913 0.00970878 0.00970529" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00117126 0.00807055 0.00807055" pos="-0.0524222 0.12291 0.0687693" quat="1 -0.000179599 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom name="robot/right_wing_mount" pos="0.012 -0.09741 0.0687784" quat="-0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/wing_mount"/>
+        <geom size="0.0054547 0.013067 0.0241722" pos="-0.0136992 -0.0978302 0.0687812" quat="-0.70698 0.707234 0 0" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00164659 0.00810268 0.00810268" pos="0.0174672 -0.12291 0.0687875" quat="0.000179599 1 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0390907 -0.0965451 0.068779" quat="-0.70688 0.707134 0.011865 -0.0118693" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00350574 0.011953 0.0224781" pos="0.0075795 -0.0969853 0.0687773" quat="-0.706913 0.707167 -0.00970529 0.00970878" type="box" contype="0" conaffinity="0" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00117126 0.00807055 0.00807055" pos="-0.0524222 -0.12291 0.0687875" quat="0.000179599 1 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+        <geom name="robot/head_pi" size="0.00138336 0.0139807 0.0309427" pos="-0.0850471 0.00336552 0.0965234" quat="-0.485191 0.530389 -0.47244 -0.509977" type="box" contype="0" conaffinity="0" rgba="0.231 0.38 0.706 1"/>
+        <geom name="robot/head_board" size="0.000757423 0.0165132 0.0205377" pos="-0.105982 -0.0165594 0.0703909" quat="-0.707057 0.00838897 0.707057 0.00838897" type="box" contype="0" conaffinity="0" rgba="0 0.501961 0 1"/>
+        <geom size="0.0054547 0.013067 0.0241722" pos="0.000997394 -0.00654924 0.0904211" quat="0 0.707107 0.707107 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00501483 0.0121527 0.0226438" pos="0.000999067 -0.0319407 0.089136" quat="0.0118671 0.707007 0.707007 -0.0118671" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00350574 0.011953 0.0224781" pos="0.00100099 0.0147295 0.0895762" quat="-0.00970704 0.70704 0.70704 0.00970704" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.0054547 0.013067 0.0241722" pos="-0.0185798 -0.0349974 0.0716401" quat="0 -0.707107 0 0.707107" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0198648 -0.034999 0.0970316" quat="0 -0.69514 0 0.718874" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00350574 0.011953 0.0224781" pos="-0.0194247 -0.035001 0.0503614" quat="0 -0.716747 0 0.697333" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.0054547 0.013067 0.0241722" pos="-0.0185798 0.0350026 0.0716401" quat="0 0.707107 0 -0.707107" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0198648 0.035001 0.0970316" quat="0 0.69514 0 -0.718874" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <geom size="0.00350574 0.011953 0.0224781" pos="-0.0194247 0.034999 0.0503614" quat="0 0.716747 0 -0.697333" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+        <body name="robot/trunk" pos="-0.024 0 0.0881909">
+          <inertial pos="0 0 0" mass="1e-09" diaginertia="0 0 0"/>
+        </body>
+        <body name="robot/hip_roll_assembly" pos="-0.019 0.035 0.0459409">
+          <inertial pos="0.000795081 -5.46541e-06 -0.03306" quat="0.70723 0.0130259 0.0134112 0.706737" mass="0.06648" diaginertia="2.81818e-05 2.44554e-05 1.42544e-05"/>
+          <joint name="robot/left_hip_yaw" pos="0 0 0" axis="0 0 1" range="-0.523599 0.523599" armature="0.027" damping="0.56" frictionloss="0.068"/>
+          <geom pos="0 -0.035 0.01905" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/roll_motor_bottom"/>
+          <geom pos="0 -0.035 0.01905" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.901961 0.901961 0.901961 1" mesh="robot/roll_motor_top"/>
+          <geom size="0.00164659 0.00810268 0.00810268" pos="0.0245172 1.06752e-07 -0.0715151" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.00117126 0.00807055 0.00807055" pos="-0.0453722 9.10961e-08 -0.0715149" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.0054547 0.013067 0.0241722" pos="-0.00664924 -2.61375e-06 -0.0464352" quat="1 0 0 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0320407 -9.41138e-07 -0.0451501" quat="0.999859 0 -0.0167827 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00350574 0.011953 0.0224781" pos="0.0146295 9.77817e-07 -0.0455903" quat="0.999906 0 0.0137278 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <body name="robot/left_roll_to_pitch_assembly" pos="0.01905 0 -0.046015" quat="0.5 -0.5 -0.5 0.5">
+            <inertial pos="0.0508042 -0.00041105 0.0204704" quat="0.549997 0.448819 0.449902 0.541898" mass="0.07516" diaginertia="4.13874e-05 2.82416e-05 2.5117e-05"/>
+            <joint name="robot/left_hip_roll" pos="0 0 0" axis="0 0 1" range="-0.436332 0.436332" armature="0.027" damping="0.56" frictionloss="0.068"/>
+            <geom pos="-0.035 -0.065 0.01905" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" rgba="0.909804 0.572549 0.164706 1" mesh="robot/left_roll_to_pitch"/>
+            <geom size="0.00164659 0.00810268 0.00810268" pos="0.0796172 -1.06752e-07 0.0606101" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+            <geom size="0.00117126 0.00807055 0.00807055" pos="0.00972777 -9.10961e-08 0.0606099" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+            <geom size="0.0054547 0.013067 0.0241722" pos="0.0484508 2.61375e-06 0.0355302" quat="0 1 0 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <geom size="0.00501483 0.0121527 0.0226438" pos="0.0230593 9.41138e-07 0.0342451" quat="0 0.999859 0 -0.0167827" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <geom size="0.00350574 0.011953 0.0224781" pos="0.0697295 -9.77817e-07 0.0346853" quat="0 0.999906 0 0.0137278" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <body name="robot/knee_and_ankle_assembly" pos="0.07415 0 0.03511" quat="0 0.707107 0 -0.707107">
+              <inertial pos="0.00233712 -0.0830088 0.00919619" quat="0.662575 -0.0799203 0.0779209 -0.740632" mass="0.162993" diaginertia="0.000104474 0.000572254 0.000587439"/>
+              <joint name="robot/left_hip_pitch" pos="0 0 0" axis="0 0 1" range="-1.22173 0.523599" armature="0.027" damping="0.56" frictionloss="0.068"/>
+              <geom pos="0.01606 0.065 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/left_cache"/>
+              <geom pos="0.01606 0.14365 0.10925" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/leg_spacer"/>
+              <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/thigh_right_sheet"/>
+              <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/thigh_left_sheet"/>
+              <geom size="0.00164659 0.00810268 0.00810268" pos="-1.06752e-07 -0.1755 -0.00536723" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.00117126 0.00807055 0.00807055" pos="-9.10961e-08 -0.1755 0.0645222" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.0054547 0.013067 0.0241722" pos="2.61375e-06 -0.15042 0.0257992" quat="0.5 -0.5 0.5 0.5" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00501483 0.0121527 0.0226438" pos="9.41138e-07 -0.149135 0.0511907" quat="0.508321 -0.491538 0.491538 0.508321" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00350574 0.011953 0.0224781" pos="-9.77817e-07 -0.149575 0.0045205" quat="0.493089 -0.506817 0.506817 0.493089" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <body name="robot/knee_and_ankle_assembly_2" pos="0 -0.15 0.0001">
+                <inertial pos="3.70453e-06 -0.165816 0.0182064" quat="0.697367 0.117203 -0.116332 0.697431" mass="0.0983401" diaginertia="7.57202e-06 0.000241821 0.000249391"/>
+                <joint name="robot/left_knee" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" armature="0.027" damping="0.56" frictionloss="0.068"/>
+                <geom pos="0.01606 0.14365 0.10925" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/leg_spacer"/>
+                <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/shin_right_sheet"/>
+                <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/shin_left_sheet"/>
+                <geom size="0.00164659 0.00810268 0.00810268" pos="-1.06752e-07 -0.2455 -0.00536723" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+                <geom size="0.00117126 0.00807055 0.00807055" pos="-9.10961e-08 -0.2455 0.0645222" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+                <geom size="0.0054547 0.013067 0.0241722" pos="2.61375e-06 -0.22042 0.0257992" quat="0.5 -0.5 0.5 0.5" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <geom size="0.00501483 0.0121527 0.0226438" pos="9.41138e-07 -0.219135 0.0511907" quat="0.508321 -0.491538 0.491538 0.508321" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <geom size="0.00350574 0.011953 0.0224781" pos="-9.77817e-07 -0.219575 0.0045205" quat="0.493089 -0.506817 0.506817 0.493089" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <body name="robot/foot_assembly" pos="0 -0.22 0.0001">
+                  <inertial pos="0.0110718 -0.0246608 0.0190626" quat="0.506106 0.51004 0.489653 0.49392" mass="0.07524" diaginertia="6.74949e-05 6.06095e-05 1.86965e-05"/>
+                  <joint name="robot/left_ankle" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" armature="0.027" damping="0.56" frictionloss="0.068"/>
+                  <geom pos="0.01606 0.2223 0.10905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.980392 0.713726 0.00392157 1" mesh="robot/foot_side"/>
+                  <geom name="robot/left_foot_collision" pos="0.01656 0.2228 0.10955" quat="0.707107 -0.707107 0 0" type="mesh" rgba="0.305882 0.298039 0.278431 1" mesh="robot/foot_bottom_tpu"/>
+                  <geom pos="0.01656 0.2228 0.10955" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.305882 0.298039 0.278431 1" mesh="robot/foot_bottom_pla"/>
+                  <geom pos="0.01606 0.2223 0.10905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.980392 0.713726 0.00392157 1" mesh="robot/foot_top"/>
+                  <body name="robot/left_foot" pos="0.0005 -0.036225 0.01955" quat="0.707107 -0.707107 0 0">
+                    <inertial pos="0 0 0" mass="1e-09" diaginertia="0 0 0"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="robot/neck_pitch_assembly" pos="0.001 0.01915 0.0900009" quat="0.707107 0.707107 0 0">
+          <inertial pos="-4.76584e-06 0.105293 0.0182276" quat="0.609367 -0.358617 -0.358802 -0.609366" mass="0.0781986" diaginertia="2.11314e-05 2.11314e-05 4.22624e-05"/>
+          <joint name="robot/neck_pitch" pos="0 0 0" axis="0 0 1" range="-0.349066 1.13446" armature="0.027" damping="0.56" frictionloss="0.068"/>
+          <geom pos="-0.02 -0.02511 0.01905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/neck_left_sheet"/>
+          <geom pos="-0.02 -0.02511 0.01905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/neck_right_sheet"/>
+          <geom size="0.00164659 0.00810268 0.00810268" pos="1.06752e-07 0.1555 -0.00546723" quat="0.707107 0 0.707107 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.00117126 0.00807055 0.00807055" pos="9.10961e-08 0.1555 0.0644222" quat="0.707107 0 0.707107 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.0054547 0.013067 0.0241722" pos="-2.61375e-06 0.13042 0.0256992" quat="0.5 0.5 0.5 -0.5" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00501483 0.0121527 0.0226438" pos="-9.41138e-07 0.129135 0.0510907" quat="0.508321 0.491538 0.491538 -0.508321" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00350574 0.011953 0.0224781" pos="9.77817e-07 0.129575 0.0044205" quat="0.493089 0.506817 0.506817 -0.493089" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <body name="robot/head_pitch_to_yaw" pos="0 0.13 0">
+            <inertial pos="-0.00766247 0.026015 0.0186681" quat="0.692632 0.709794 0.0901533 0.0912391" mass="0.0169378" diaginertia="9.7861e-06 8.03124e-06 4.28979e-06"/>
+            <joint name="robot/head_pitch" pos="0 0 0" axis="0 0 1" range="-0.785398 0.785398" armature="0.027" damping="0.56" frictionloss="0.068"/>
+            <geom pos="-0.02 -0.09111 0.01905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.4 0.4 0.4 1" mesh="robot/head_pitch_to_yaw"/>
+            <body name="robot/neck_yaw_assembly" pos="0 0.057 0.01905" quat="0.707107 -0.707107 0 0">
+              <inertial pos="0.00935714 4.66983e-06 -0.0205517" quat="-0.000939788 0.684284 -0.000985279 0.729215" mass="0.0778043" diaginertia="7.24358e-05 7.11196e-05 3.14722e-05"/>
+              <joint name="robot/head_yaw" pos="0 0 0" axis="0 0 1" range="-2.79253 2.79253" armature="0.027" damping="0.56" frictionloss="0.068"/>
+              <geom pos="-0.02 0 -0.14821" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/roll_bracket"/>
+              <geom size="0.00164659 0.00810268 0.00810268" pos="-0.0255001 -1.11038e-07 0.00546723" quat="0.5 0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.00117126 0.00807055 0.00807055" pos="-0.0254999 -7.33028e-08 -0.0644223" quat="0.5 0.5 -0.5 0.5" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.0054547 0.013067 0.0241722" pos="-0.000420186 2.6188e-06 -0.0256992" quat="0 0.707107 0 0.707107" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00501483 0.0121527 0.0226438" pos="0.000864865 9.54227e-07 -0.0510907" quat="0 0.718874 0 0.69514" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00350574 0.011953 0.0224781" pos="0.00042469 -9.79458e-07 -0.0044205" quat="0 0.697333 0 0.716747" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <body name="robot/head_assembly" pos="0.04095 0 -0.01915" quat="0.707107 0 -0.707107 0">
+                <inertial pos="-0.00459828 5.46311e-07 -0.0341862" quat="0.702112 0.0798023 0.0796966 0.703078" mass="0.0427362" diaginertia="4.07083e-05 4.06095e-05 1.10399e-05"/>
+                <joint name="robot/head_roll" pos="0 0 0" axis="0 0 1" range="-0.523599 0.523599" armature="0.0005" damping="0.05" frictionloss="0.01"/>
+                <geom pos="-0.12906 0 0.06095" quat="0.707106 0 0.707107 0" type="mesh" contype="0" conaffinity="0" rgba="0.957 0.604 0.69 1" mesh="robot/skull"/>
+                <geom pos="-0.12906 0 0.06095" quat="0.707106 0 0.707107 0" type="mesh" contype="0" conaffinity="0" rgba="0.957 0.604 0.69 1" mesh="robot/nape"/>
+                <geom name="robot/left_eye" pos="0.00700003 0.0247869 -0.0270501" quat="0.5 -0.5 0.5 0.5" type="mesh" contype="0" conaffinity="0" rgba="0.08 0.08 0.08 1" mesh="robot/eye"/>
+                <geom name="robot/right_eye" pos="0.00700003 -0.0247869 -0.0270501" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" rgba="0.08 0.08 0.08 1" mesh="robot/eye"/>
+                <geom name="robot/roll_servo" size="0.00630368 0.0120382 0.0131758" pos="-0.00530221 0 -0.00231835" quat="0.664742 0.241077 0.241077 0.664742" type="box" contype="0" conaffinity="0" rgba="0.435 0.671 0.976 1"/>
+                <body name="robot/head" pos="0.04245 0 0.03595" quat="0.707107 0 0.707107 0">
+                  <inertial pos="0 0 0" mass="1e-09" diaginertia="0 0 0"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="robot/hip_roll_assembly_2" pos="-0.019 -0.035 0.0459409">
+          <inertial pos="0.000795081 -5.46541e-06 -0.03306" quat="0.70723 0.0130259 0.0134112 0.706737" mass="0.06648" diaginertia="2.81818e-05 2.44554e-05 1.42544e-05"/>
+          <joint name="robot/right_hip_yaw" pos="0 0 0" axis="0 0 1" range="-0.523599 0.523599" armature="0.027" damping="0.56" frictionloss="0.068"/>
+          <geom pos="0 -0.035 0.01905" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/roll_motor_bottom"/>
+          <geom pos="0 -0.035 0.01905" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.901961 0.901961 0.901961 1" mesh="robot/roll_motor_top"/>
+          <geom size="0.00164659 0.00810268 0.00810268" pos="0.0245172 1.06752e-07 -0.0715151" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.00117126 0.00807055 0.00807055" pos="-0.0453722 9.10961e-08 -0.0715149" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+          <geom size="0.0054547 0.013067 0.0241722" pos="-0.00664924 -2.61375e-06 -0.0464352" quat="1 0 0 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0320407 -9.41138e-07 -0.0451501" quat="0.999859 0 -0.0167827 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <geom size="0.00350574 0.011953 0.0224781" pos="0.0146295 9.77817e-07 -0.0455903" quat="0.999906 0 0.0137278 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+          <body name="robot/right_roll_to_pitch_assembly" pos="0.01905 0 -0.046015" quat="0.5 -0.5 -0.5 0.5">
+            <inertial pos="-0.0508042 -0.000420742 0.0204704" quat="0.449467 0.542039 0.549858 0.449254" mass="0.07516" diaginertia="4.13872e-05 2.82413e-05 2.51163e-05"/>
+            <joint name="robot/right_hip_roll" pos="0 0 0" axis="0 0 1" range="-0.436332 0.436332" armature="0.027" damping="0.56" frictionloss="0.068"/>
+            <geom pos="0.035 -0.065 0.01905" quat="0.5 0.5 0.5 -0.5" type="mesh" contype="0" conaffinity="0" rgba="0.909804 0.572549 0.164706 1" mesh="robot/right_roll_to_pitch"/>
+            <geom size="0.00164659 0.00810268 0.00810268" pos="-0.0796172 1.06752e-07 0.0606101" quat="0 0 0.707107 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+            <geom size="0.00117126 0.00807055 0.00807055" pos="-0.00972777 9.10961e-08 0.0606099" quat="0 0 0.707107 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+            <geom size="0.0054547 0.013067 0.0241722" pos="-0.0484508 -2.61375e-06 0.0355302" quat="0 0 1 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <geom size="0.00501483 0.0121527 0.0226438" pos="-0.0230593 -9.41138e-07 0.0342451" quat="0.0167827 0 0.999859 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <geom size="0.00350574 0.011953 0.0224781" pos="-0.0697295 9.77817e-07 0.0346853" quat="-0.0137278 0 0.999906 0" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+            <body name="robot/knee_and_ankle_assembly_3" pos="-0.07415 0 0.03511" quat="0.707107 0 0.707107 0">
+              <inertial pos="0.00233712 0.0830088 0.00962144" quat="0.733568 0.12163 0.00357784 -0.668634" mass="0.162993" diaginertia="9.13374e-05 0.000573227 0.000601839"/>
+              <joint name="robot/right_hip_pitch" pos="0 0 0" axis="0 0 1" range="-0.523599 1.22173" armature="0.027" damping="0.56" frictionloss="0.068"/>
+              <geom pos="0.01606 -0.065 0.1092" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/right_cache"/>
+              <geom pos="0.01606 -0.14365 -0.07215" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/leg_spacer"/>
+              <geom pos="0.01606 -0.14365 -0.07205" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/thigh_right_sheet"/>
+              <geom pos="0.01606 -0.14365 -0.07205" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/thigh_left_sheet"/>
+              <geom size="0.00164659 0.00810268 0.00810268" pos="-1.06752e-07 0.1755 0.0424672" quat="0.707107 0 -0.707107 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.00117126 0.00807055 0.00807055" pos="-9.10961e-08 0.1755 -0.0274222" quat="0.707107 0 -0.707107 0" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+              <geom size="0.0054547 0.013067 0.0241722" pos="2.61375e-06 0.15042 0.0113008" quat="0.5 0.5 -0.5 0.5" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00501483 0.0121527 0.0226438" pos="9.41138e-07 0.149135 -0.0140907" quat="0.491538 0.508321 -0.508321 0.491538" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <geom size="0.00350574 0.011953 0.0224781" pos="-9.77817e-07 0.149575 0.0325795" quat="0.506817 0.493089 -0.493089 0.506817" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+              <body name="robot/knee_and_ankle_assembly_4" pos="0 0.15 0.037" quat="0 1 0 0">
+                <inertial pos="3.70453e-06 -0.165816 0.0182064" quat="0.697367 0.117203 -0.116332 0.697431" mass="0.0983401" diaginertia="7.57202e-06 0.000241821 0.000249391"/>
+                <joint name="robot/right_knee" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" armature="0.027" damping="0.56" frictionloss="0.068"/>
+                <geom pos="0.01606 0.14365 0.10925" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.647059 0.647059 0.647059 1" mesh="robot/leg_spacer"/>
+                <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/shin_right_sheet"/>
+                <geom pos="0.01606 0.14365 0.10915" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.223529 0.219608 0.219608 1" mesh="robot/shin_left_sheet"/>
+                <geom size="0.00164659 0.00810268 0.00810268" pos="-1.06752e-07 -0.2455 -0.00536723" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+                <geom size="0.00117126 0.00807055 0.00807055" pos="-9.10961e-08 -0.2455 0.0645222" quat="0 -0.707107 0 0.707107" type="box" contype="0" conaffinity="0" rgba="0.623529 0.666667 0.701961 1"/>
+                <geom size="0.0054547 0.013067 0.0241722" pos="2.61375e-06 -0.22042 0.0257992" quat="0.5 -0.5 0.5 0.5" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <geom size="0.00501483 0.0121527 0.0226438" pos="9.41138e-07 -0.219135 0.0511907" quat="0.508321 -0.491538 0.491538 0.508321" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <geom size="0.00350574 0.011953 0.0224781" pos="-9.77817e-07 -0.219575 0.0045205" quat="0.493089 -0.506817 0.506817 0.493089" type="box" rgba="0.247059 0.243137 0.243137 1"/>
+                <body name="robot/foot_assembly_2" pos="0 -0.22 0.0001">
+                  <inertial pos="0.0110718 -0.0246608 0.0190626" quat="0.506106 0.51004 0.489653 0.49392" mass="0.07524" diaginertia="6.74949e-05 6.06095e-05 1.86965e-05"/>
+                  <joint name="robot/right_ankle" pos="0 0 0" axis="0 0 1" range="-1.5708 1.5708" armature="0.027" damping="0.56" frictionloss="0.068"/>
+                  <geom pos="0.01606 0.2223 0.10905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.980392 0.713726 0.00392157 1" mesh="robot/foot_side"/>
+                  <geom name="robot/right_foot_collision" pos="0.01656 0.2228 0.10955" quat="0.707107 -0.707107 0 0" type="mesh" rgba="0.305882 0.298039 0.278431 1" mesh="robot/foot_bottom_tpu"/>
+                  <geom pos="0.01656 0.2228 0.10955" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.305882 0.298039 0.278431 1" mesh="robot/foot_bottom_pla"/>
+                  <geom pos="0.01606 0.2223 0.10905" quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" rgba="0.980392 0.713726 0.00392157 1" mesh="robot/foot_top"/>
+                  <body name="robot/right_foot" pos="0.0005 -0.036225 0.01955" quat="0.707107 -0.707107 0 0">
+                    <inertial pos="0 0 0" mass="1e-09" diaginertia="0 0 0"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="robot/left_wing" pos="0.012 0.09741 0.0687784" quat="0.5 0.5 -0.5 -0.5">
+          <inertial pos="-0.0567444 0 0.0222185" quat="0.483175 0.516277 0.516277 0.483175" mass="0.0231543" diaginertia="4.52814e-05 3.9976e-05 5.85514e-06"/>
+          <joint name="robot/left_wing" pos="0 0 0" axis="0 0 -1" range="-1.2 1.6" armature="0.027" damping="0.56" frictionloss="0.068"/>
+          <geom type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/wing"/>
+        </body>
+        <body name="robot/right_wing" pos="0.012 -0.09741 0.0687784" quat="-0.5 0.5 0.5 -0.5">
+          <inertial pos="-0.0567444 0 0.0222185" quat="0.483175 0.516277 0.516277 0.483175" mass="0.0231543" diaginertia="4.52814e-05 3.9976e-05 5.85514e-06"/>
+          <joint name="robot/right_wing" pos="0 0 0" axis="0 0 1" range="-1.2 1.6" armature="0.027" damping="0.56" frictionloss="0.068"/>
+          <geom type="mesh" contype="0" conaffinity="0" rgba="0.917647 0.917647 0.917647 1" mesh="robot/wing"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude name="robot/exclude2" body1="robot/trunk_assembly" body2="robot/hip_roll_assembly"/>
+    <exclude name="robot/exclude6" body1="robot/trunk_assembly" body2="robot/left_roll_to_pitch_assembly"/>
+    <exclude name="robot/exclude1" body1="robot/trunk_assembly" body2="robot/neck_yaw_assembly"/>
+    <exclude name="robot/exclude3" body1="robot/trunk_assembly" body2="robot/hip_roll_assembly_2"/>
+    <exclude name="robot/exclude7" body1="robot/trunk_assembly" body2="robot/right_roll_to_pitch_assembly"/>
+    <exclude name="robot/exclude4" body1="robot/hip_roll_assembly" body2="robot/left_roll_to_pitch_assembly"/>
+    <exclude name="robot/exclude8" body1="robot/head_pitch_to_yaw" body2="robot/neck_yaw_assembly"/>
+    <exclude name="robot/exclude10" body1="robot/head_pitch_to_yaw" body2="robot/head_assembly"/>
+    <exclude name="robot/exclude9" body1="robot/neck_yaw_assembly" body2="robot/head_assembly"/>
+    <exclude name="robot/exclude5" body1="robot/hip_roll_assembly_2" body2="robot/right_roll_to_pitch_assembly"/>
+  </contact>
+
+  <actuator>
+    <general name="robot/left_hip_yaw" joint="robot/left_hip_yaw" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/left_hip_roll" joint="robot/left_hip_roll" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/left_hip_pitch" joint="robot/left_hip_pitch" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/left_knee" joint="robot/left_knee" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/left_ankle" joint="robot/left_ankle" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/neck_pitch" joint="robot/neck_pitch" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/head_pitch" joint="robot/head_pitch" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/head_yaw" joint="robot/head_yaw" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/head_roll" joint="robot/head_roll" ctrllimited="false" forcelimited="true" forcerange="-0.176 0.176" biastype="affine" gainprm="2" biasprm="0 -2 -0.05"/>
+    <general name="robot/right_hip_yaw" joint="robot/right_hip_yaw" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/right_hip_roll" joint="robot/right_hip_roll" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/right_hip_pitch" joint="robot/right_hip_pitch" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/right_knee" joint="robot/right_knee" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/right_ankle" joint="robot/right_ankle" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/left_wing" joint="robot/left_wing" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+    <general name="robot/right_wing" joint="robot/right_wing" ctrllimited="false" forcelimited="true" forcerange="-3.23 3.23" biastype="affine" gainprm="13.37" biasprm="0 -13.37"/>
+  </actuator>
+
+  <sensor>
+    <gyro site="robot/imu" name="robot/imu_ang_vel"/>
+    <velocimeter site="robot/imu" name="robot/imu_lin_vel"/>
+    <accelerometer site="robot/imu" name="robot/imu_lin_acc"/>
+    <contact subtree1="robot/trunk_assembly" subtree2="robot/trunk_assembly" name="self_collision_trunk_assembly_found"/>
+  </sensor>
+
+  <keyframe>
+    <key name="init_state" qpos="0 0 0.17 1 0 0 0 0 0 -0.4 0.8 -0.4 0 0 0 0 0 0 0.4 0.8 -0.4 0 0" ctrl="0 0 -0.4 0.8 -0.4 0 0 0 0 0 0 0.4 0.8 -0.4 0 0"/>
+  </keyframe>
+</mujoco>

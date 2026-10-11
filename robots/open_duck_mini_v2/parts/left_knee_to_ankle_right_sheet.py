@@ -10,6 +10,7 @@ import runpy
 here = os.path.dirname(os.path.abspath(__file__))
 SOURCE = next(p for p in (os.path.join(here, "..", "left_knee_to_ankle_left_sheet", "written.py"),
                           os.path.join(here, "left_knee_to_ankle_left_sheet.py")) if os.path.exists(p))
-SHEET = dict(side="idler", thick=3.85, servo_grip=2.0, horn_head_w=2.85, rod_head_w=1.85,
+SHEET = dict(globals().get("SHEET", {}), side="idler",   # a variant's values (its link), then this sheet's differences
+             thick=3.85, servo_grip=2.0, horn_head_w=2.85, rod_head_w=1.85,
              cable_w=10.0, cable_top_w=2.95, cable_end_r=3.0)
 result = runpy.run_path(SOURCE, init_globals={"SHEET": SHEET})["result"]

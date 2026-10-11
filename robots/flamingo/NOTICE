@@ -1,0 +1,8 @@
+Flamingo: a variant of Open Duck Mini v2, as CadQuery programs
+
+Upstream: Antoine Pirrone and contributors, github.com/apirrone/Open_Duck_Mini (design after Disney's BDX droid; thanks.md there lists the contributors); the Onshape document 64074dfcfa379b37d8a47762.
+Licence: Apache-2.0 (LICENSE in this folder), as the Duck's.
+The Flamingo is the Duck with longer legs and neck, wings and a bird's head, by Yo.Town 3D. Its parts are
+the Duck's programs (robots/open_duck_mini_v2), some run with the Flamingo's values (shared.py), and its
+own new parts (the wings, the bird head and the shell that carries them). Bought parts (servos, bearings,
+screws, electronics) are not included.

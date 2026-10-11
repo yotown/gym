@@ -26,7 +26,7 @@ BOSS_D = 8.0
 # the cover runs down the thigh, from the hip pitch's axis to past the knee's: the knee end is placed from
 # the knee, so a longer thigh (the leg sheets' LINK) moves it and keeps it over the knee servo
 HIP_PITCH_Z = -65.0                        # the hip pitch's axis (z, at x = -16.06)
-LINK = 78.65                               # the hip pitch's axis to the knee's: the leg sheets' LINK
+LINK = globals().get("LINK", 78.65)        # the hip pitch's axis to the knee's: the leg sheets' LINK (a variant passes its own)
 KNEE_Z = HIP_PITCH_Z - LINK
 # the front face's corners, in order round it: about the hip (x, z), then about the knee (x, z from KNEE_Z)
 HIP_END = [(-35.6, -52.61), (-16.19, -27.33), (13.67, -27.33), (32.65, -55.57), (14.89, -91.75)]   # measured

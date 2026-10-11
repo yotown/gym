@@ -1,6 +1,10 @@
 # Tasks
 
-This folder will hold training tasks for the robots in `robots/`: simulation environments with their
-rewards, built from the same part programs as the printed robots.
+Robots in simulation: each task is a MuJoCo model built from the part programs in `robots/`, and what the
+robot does in it.
 
-None are here yet. Ideas and requests: open an issue, or write to help@yotown.com.
+| Task | Robot | What it does |
+|---|---|---|
+| [flamingo_march](flamingo_march) | the Flamingo (`robots/flamingo`) | marches to a beat, stepping forward and back, its head bobbing and looking around |
+
+Ideas and requests: open an issue, or write to help@yotown.com.

@@ -16,14 +16,14 @@ Dimensions that several parts share are written in one place. For example, the s
 pattern is defined once, and every part that holds a servo uses it. Change it there, and all of those
 parts change with it.
 
-The same programs make the files you print and the meshes in the simulation model. Training tasks for
-these robots will be added later.
+The same programs make the files you print and the meshes in the simulation model.
 
 | Robot | Upstream | Printed parts |
 |---|---|---|
 | [SO-101](https://github.com/yotown/gym/tree/main/robots/so101) | TheRobotStudio and Hugging Face, [SO-ARM100](https://github.com/TheRobotStudio/SO-ARM100) | 13 |
 | [Open Duck Mini v2](https://github.com/yotown/gym/tree/main/robots/open_duck_mini_v2) | Antoine Pirrone and contributors, [Open_Duck_Mini](https://github.com/apirrone/Open_Duck_Mini) | 36 |
 | [LeRobot humanoid](https://github.com/yotown/gym/tree/main/robots/lerobot_humanoid) | Hugging Face, [lerobot-humanoid-design](https://github.com/huggingface/lerobot-humanoid-design) | 34 |
+| [Flamingo](https://github.com/yotown/gym/tree/main/robots/flamingo) | Yo.Town 3D: Open Duck Mini v2 with long legs, wings and a bird's head | 15 new or changed |
 
 These are first versions, and you can help make them better: see [CONTRIBUTING.md](https://github.com/yotown/gym/blob/main/CONTRIBUTING.md).
 
@@ -53,6 +53,47 @@ changed    under_arm           +0.000 / -89.404 mm3   at x 57.1..72.6  y -39.8..
 changed    upper_arm           +0.000 / -19.906 mm3   at x 57.3..72.8  y 4.2..19.8    z -31.7..-28.7
 changed    wrist_roll_pitch    +0.000 / -82.872 mm3   at x -27.1..27.7 y -7.8..7.8    z 20.2..35.8
 so101 since HEAD: 5 changed, 8 unchanged
+```
+
+## From the Duck to the Flamingo
+
+[![Duck to Flamingo](https://raw.githubusercontent.com/yotown/gym/main/docs/images/duck_to_flamingo.png)](https://www.youtube.com/watch?v=8pBqEcWpOpc)
+
+Watch it: [Duck to Flamingo, on YouTube](https://www.youtube.com/watch?v=8pBqEcWpOpc).
+
+The Flamingo is Open Duck Mini v2 with three values changed and a few new parts. The values are in
+[robots/flamingo/shared.py](https://github.com/yotown/gym/blob/main/robots/flamingo/shared.py):
+
+```python
+THIGH = 150.0               # the hip pitch's axis to the knee's   (the Duck's: 78.65)
+SHIN = 220.0                # the knee's axis to the ankle's       (the Duck's: 78.65)
+NECK = 130.0                # the neck pitch's axis to the head pitch's (the Duck's: 66.0)
+```
+
+Its leg and neck parts don't copy the Duck's programs: they run them with these values. For example,
+`robots/flamingo/parts/shin_left_sheet.py` is the Duck's leg sheet with the Flamingo's shin:
+
+```python
+S = shared(__file__)
+result = runpy.run_path(S.duck("left_knee_to_ankle_left_sheet"), init_globals={"SHEET": {"link": S.SHIN}})["result"]
+```
+
+The servo pockets, horn holes and screw holes stay where the STS3215 needs them; only the length between
+them changes. The new parts are the wings (an STS3215 each, in a cradle screwed to the body), a small
+bird's head on an SG90, and the body shell that carries the wing mounts and, now that the head is
+small, the Raspberry Pi. Every other part is the Duck's own.
+
+```sh
+gym check flamingo                    # its new and changed parts build valid solids
+gym build flamingo --stl              # to print them; the rest: gym build open_duck_mini_v2 --stl
+```
+
+[tasks/flamingo_march](https://github.com/yotown/gym/tree/main/tasks/flamingo_march) has the Flamingo's
+MuJoCo model, built from these programs, and a policy trained to march in it:
+
+```sh
+pip install mujoco onnxruntime
+python tasks/flamingo_march/play.py
 ```
 
 ## Software engineering, for hardware
@@ -184,7 +225,7 @@ Keep a robot's folder together: its parts read its `shared.py`, and a family's m
 src/yotown/gym/    the framework (import yotown.gym): interfaces, standard parts, the gym command
 vendors/<maker>/   bought parts, one folder per maker (import yotown.gym.vendors.<maker>)
 robots/<robot>/    shared.py, parts/<part>.py, the upstream's LICENSE and a NOTICE
-tasks/             training tasks for the robots (planned)
+tasks/             robots in simulation: the Flamingo's march (tasks/flamingo_march)
 docs/              the design (design.md), code quality (code-quality.md), and the maps above (images/)
 ```
 

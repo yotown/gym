@@ -1,0 +1,12 @@
+{
+ "model": "flamingo.xml",
+ "policy": "policy.onnx",
+ "steps": 808,
+ "control_dt": 0.02,
+ "decimation": 4,
+ "anchor_body": "robot/trunk_assembly",
+ "imu": {
+  "lin_vel": "robot/imu_lin_vel",
+  "ang_vel": "robot/imu_ang_vel"
+ }
+}

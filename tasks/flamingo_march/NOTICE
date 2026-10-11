@@ -1,0 +1,6 @@
+The Flamingo's march, in MuJoCo
+
+The model is derived from Open Duck Mini v2's MuJoCo model (Antoine Pirrone and contributors,
+github.com/apirrone/Open_Duck_Mini, Apache-2.0), with the Flamingo's parts and values by Yo.Town 3D.
+The meshes are built from the part programs in robots/flamingo and robots/open_duck_mini_v2 (Apache-2.0).
+The policy was trained by Yo.Town 3D. Licence: Apache-2.0.

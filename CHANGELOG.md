@@ -5,6 +5,19 @@ Versions follow [semantic versioning](https://semver.org) with the rule in
 face) is a breaking change. Before 1.0, breaking changes raise the minor version (0.1 to 0.2). Each
 release lists its interface changes first.
 
+## 0.3.0
+
+Interface changes: none. Every existing part builds the same solid as in 0.2.4.
+
+- `robots/flamingo`: the Flamingo, Open Duck Mini v2 with long legs, a long neck, wings and a bird's head.
+  Its `shared.py` holds its three design values (`THIGH`, `SHIN`, `NECK`); its leg and neck parts run the
+  Duck's programs with them, and its new parts (the wings, the bird head and the shell that carries them)
+  are programs of their own.
+- The Duck's neck sheets and leg covers take their `LINK` from a variant that runs them, and its inner leg
+  sheet takes a variant's `SHEET` values; run on their own, they build as before.
+- `tasks/flamingo_march`: the Flamingo's MuJoCo model, built from its programs, and a trained policy that
+  marches in it (`play.py`, MuJoCo and ONNX Runtime).
+
 ## 0.2.4
 
 Interface changes: none. The README's images and links are full URLs, so PyPI's project page shows
